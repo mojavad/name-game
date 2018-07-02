@@ -1,2 +1,7 @@
 # name-game
-A timed game where you have a limited time to type in a given name that starts with a certain letter. Made with pure HTML, CSS and JS (with some JQuery).
+A timed game where you have a limited time to type in a given name that starts with a certain letter. Made with pure HTML, CSS and JS (with some JQuery). I got the idea for the game from my grandmother ( :D ) when we were on a roadtrip, and she was attempting to entertain my younger brother who was extremely bored. Her game essentially went as followed:
+We'd go around in a circle taking turns. The first player would call out a name, and the next person would have to call a name that started with the last letter of the previous name that was called. Each person would have 10 seconds, before losing and exiting the game.
+
+I initially started with simple HTML forms that had no formatting done with CSS whatsoever. The code for the game, and the methods were written in JavaScript. The project contains a text file, that is called "names.txt", which contains over 5000 names. The list was retrieved from smashew's NameDatabase repo (https://github.com/smashew/NameDatabases). 
+
+The script uses jQuery's get function to read the text file, and checks to see if it includes a given string that is written in the user input. If the name has not been used before, and starts with the letter that is asked for, it will be accepted, and the game continues with the next letter (which will be the last letter of the user inputted name). Otherwise, the user will lose, and will have to restart the game.
