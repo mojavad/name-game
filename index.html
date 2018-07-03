@@ -1,22 +1,38 @@
 <html>
     <head>
         <link rel="stylesheet" href="styles.css" />
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
         <title>The Name Game</title>
     </head>
     <body>
-        <h1>The Name Game</h1>
+        <h1 id ="title">NameGame</h1>
+        <h5 id ="caption">A simple game that tests how well versed you are with names.</h5>
         <h6 id="counter">Correct Number is: 0</h6>
         <h3 id="seconds"></h3>
+        <h6 id ="letterCaption">The current letter is:</h6>
         <h2 id ="currentLetter"></h2>
-        <input id="entry" placeholder="Type Here..."/>
 
-        <br /><br />
-
-        <button id="submit">OK</button>
-        <br /><br />
+        <div id ="container">
+          <input id="entry" type="text" placeholder="Type Here..." class="placeholder-fix"/>
+          <br /><br />
+          <button id="submit">OK</button><br /><br />
+          <button id="reset" style="visibility: hidden;">Reset</button>
+        </div>
+        <br />
 
         <h4 id="output"></h4>
+        <div id="instructions">
+          <p>
+            <b>Instructions:</b> The game tests to see how many first names you can remember in a limited time environment. Initially, the system will choose a random letter to start off the game. You need to type in a given name that starts with the letter (and click enter after to submit). The last letter of the name that you type will become the new letter for which you need to enter a name. You have 10 seconds for each name. Repetitions are not allowed. <i>Good Luck!</i>
+          </p>
+        </div>
+        <br />
 
+        <footer>
+          Copyright 2018 - Created by Mohammad Javad.
+        </footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script src="scripts.js"></script>
     </body>

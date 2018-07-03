@@ -2,9 +2,14 @@ var letter = "";
 var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var time = 10;
 const INPUT = document.getElementById("entry");
+const OKBUTTON = document.getElementById("submit");
+const RESETBUTTON = document.getElementById("reset");
 var enteredNames = [" "];
 var timerVar;
 var timerRunning = false;
+var refresher;
+
+
 
 letter += possible.charAt(Math.floor(Math.random() * possible.length));
 
@@ -15,24 +20,29 @@ var recordCount = 0;
 function checker(name) {
   $.get("names.txt", function(contents){
      //contents variable now contains the contents of the textfile as string
-
      //check if file contains the word Hello
      var hasName = contents.includes(name);
 
      if(name.charAt(0) != letter) {
        alert("Your Name doesn't start with the current letter");
+       document.getElementById("output").style.color = "#e06c75"
+       document.getElementById("output").innerHTML = "You have lost!"
+
        lose();
      }
      else{
        if (hasName) {
          if(enteredNames.includes(name)) {
            alert("Repetitive Name! Sorry!");
+           document.getElementById("output").style.color = "#e06c75"
+           document.getElementById("output").innerHTML = "You have lost!"
            lose();
          }
          else {
+           document.getElementById("output").style.color = "#69b779"
            document.getElementById("output").innerHTML = "Correct!"
            recordCount++;
-           document.getElementById("counter").innerHTML = "Correct Number is: " + recordCount;
+           document.getElementById("counter").innerHTML = "Correct Number is: <b>" + recordCount + "</b>";
            letter = name.substr(name.length -1).toUpperCase();
            document.getElementById("currentLetter").innerHTML = letter;
            enteredNames.push(name);
@@ -43,7 +53,8 @@ function checker(name) {
 
        }
        else {
-         document.getElementById("output").innerHTML = "Incorrect!"
+         document.getElementById("output").style.color = "#e06c75"
+         document.getElementById("output").innerHTML = "You have lost!"
          lose();
        }
      }
@@ -53,18 +64,26 @@ function checker(name) {
 }
 
 function lose() {
+  document.getElementById("seconds").style.visibility = "hidden";
   recordCount = 0;
   time = 0;
-  var enteredNames = [" "];
-  document.getElementById("counter").innerHTML = "You have lost :P";
+  enteredNames = [" "];
+  timerRunning = false;
   clearInterval(timerVar);
+  clearInterval(refresher);
   INPUT.disabled = "disabled";
+  OKBUTTON.style.visibility = "hidden";
+  RESETBUTTON.style.visibility = "visible";
+  document.getElementById("output").style.color = "#e06c75"
+  document.getElementById("output").innerHTML = "You have lost!"
+
 
 }
 
 document.getElementById("submit").addEventListener('click', function() {
     var textField = document.getElementById('entry').value;
-    checker(textField);
+    var tempName = textField.charAt(0).toUpperCase() + textField.substr(1,textField.length).toLowerCase();
+    checker(tempName);
 
 
 });
@@ -72,6 +91,7 @@ document.getElementById("submit").addEventListener('click', function() {
 function startCounter () {
 
     if (!timerRunning) {
+      document.getElementById("seconds").style.visibility = "visible";
         timerRunning = true;
         timerVar = setInterval(function(){
          time--;
@@ -85,15 +105,47 @@ function startCounter () {
 
     }
 
-    setInterval(function() {
+    refresher = setInterval(function() {
       document.getElementById("seconds").innerHTML = "You have " + time + " seconds left."
+      if (time>7) {
+        document.getElementById("seconds").style.color = "#69b779";
+      }
+      else if (4<=time&&time<=7) {
+        document.getElementById("seconds").style.color = "#d19a56";
+      }
+      else {
+        document.getElementById("seconds").style.color = "#e06c75";
+
+      }
     }, 250);
 
 }
 
 
 INPUT.addEventListener("keypress", startCounter ,false)
+RESETBUTTON.addEventListener('click', function(e) {
 
+});
+
+document.getElementById("reset").addEventListener('click', function() {
+    document.getElementById("seconds").innerHTML = ""
+    document.getElementById("counter").innerHTML = "Correct Number is: " + recordCount;
+    letter = "";
+    time = 10;
+    document.getElementById("seconds").innerHTML = " ";
+    letter += possible.charAt(Math.floor(Math.random() * possible.length));
+    document.getElementById("currentLetter").innerHTML = letter;
+    INPUT.removeAttribute("disabled");
+    timerRunning = false;
+    INPUT.value = "";
+    OKBUTTON.removeAttribute("disabled");
+    RESETBUTTON.style.visibility = "hidden";
+    document.getElementById("output").innerHTML = ""
+    OKBUTTON.style.visibility = "visible";
+
+
+
+});
 
 // Execute a function when the user releases a key on the keyboard
 INPUT.addEventListener("keyup", function(event) {
