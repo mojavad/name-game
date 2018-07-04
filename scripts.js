@@ -41,6 +41,8 @@ function checker(name) {
          else {
            document.getElementById("output").style.color = "#69b779"
            document.getElementById("output").innerHTML = "Correct!"
+           var incAudio = new Audio('sounds/correct.mp3');
+           incAudio.play();
            recordCount++;
            document.getElementById("counter").innerHTML = "Correct Number is: <b>" + recordCount + "</b>";
            letter = name.substr(name.length -1).toUpperCase();
@@ -74,6 +76,8 @@ function lose() {
   INPUT.disabled = "disabled";
   OKBUTTON.style.visibility = "hidden";
   RESETBUTTON.style.visibility = "visible";
+  var incAudio = new Audio('sounds/incorrect.mp3');
+  incAudio.play();
   document.getElementById("output").style.color = "#e06c75"
   document.getElementById("output").innerHTML = "You have lost!"
 

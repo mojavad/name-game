@@ -5,7 +5,9 @@ body {
   background-color: #282c34;
   font-family: sans-serif;
   color: #abb2bf;
+  zoom: 110%;
 }
+
 
 p {
   font-family: "Dosis";
@@ -193,7 +195,9 @@ color: #58afef;
   font-family: "Pacifico";
   text-shadow: 0px -2px #000;
   margin-top: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
+
+  padding-bottom: 0px;
   font-weight: normal;
   font-size: 28px;
 }
@@ -205,6 +209,7 @@ color: #58afef;
 
 #button-container{
   text-align: center;
+  margin-top: 0px;
   margin-bottom: 0px;
 }
 
@@ -216,4 +221,15 @@ color: #58afef;
 footer {
   font-family: "Dosis";
   font-size: 14px;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: #58afef;
+    font-family: "Pacifico";
+    text-decoration: inherit;
+    font-weight: inherit;
 }
