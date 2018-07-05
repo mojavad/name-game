@@ -8,7 +8,7 @@ var enteredNames = [" "];
 var timerVar;
 var timerRunning = false;
 var refresher;
-
+var audio = true;
 
 
 letter += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -24,25 +24,25 @@ function checker(name) {
      var hasName = contents.includes(name);
 
      if(name.charAt(0) != letter) {
-       alert("Your Name doesn't start with the current letter");
-       document.getElementById("output").style.color = "#e06c75"
-       document.getElementById("output").innerHTML = "You have lost!"
-
-       lose();
+       document.getElementById("output").style.color = "#d19a56"
+       document.getElementById("output").innerHTML = "Wrong Letter!"
+       INPUT.value = "";
      }
      else{
        if (hasName) {
          if(enteredNames.includes(name)) {
-           alert("Repetitive Name! Sorry!");
-           document.getElementById("output").style.color = "#e06c75"
-           document.getElementById("output").innerHTML = "You have lost!"
-           lose();
+           document.getElementById("output").style.color = "#d19a56"
+           document.getElementById("output").innerHTML = "Repetitive Name!"
+           INPUT.value = "";
+
          }
          else {
            document.getElementById("output").style.color = "#69b779"
            document.getElementById("output").innerHTML = "Correct!"
-           var incAudio = new Audio('sounds/correct.mp3');
-           incAudio.play();
+           if (audio) {
+             var incAudio = new Audio('sounds/correct.mp3');
+             incAudio.play();
+           }
            recordCount++;
            document.getElementById("counter").innerHTML = "Correct Number is: <b>" + recordCount + "</b>";
            letter = name.substr(name.length -1).toUpperCase();
@@ -55,9 +55,9 @@ function checker(name) {
 
        }
        else {
-         document.getElementById("output").style.color = "#e06c75"
-         document.getElementById("output").innerHTML = "You have lost!"
-         lose();
+         document.getElementById("output").style.color = "#d19a56"
+         document.getElementById("output").innerHTML = "Name doesn't exist!"
+         INPUT.value = "";
        }
      }
      //outputs true if contained, else false
@@ -76,8 +76,10 @@ function lose() {
   INPUT.disabled = "disabled";
   OKBUTTON.style.visibility = "hidden";
   RESETBUTTON.style.visibility = "visible";
-  var incAudio = new Audio('sounds/incorrect.mp3');
-  incAudio.play();
+  if (audio) {
+    var incAudio = new Audio('sounds/incorrect.mp3');
+    incAudio.play();
+  }
   document.getElementById("output").style.color = "#e06c75"
   document.getElementById("output").innerHTML = "You have lost!"
 
@@ -149,6 +151,18 @@ document.getElementById("reset").addEventListener('click', function() {
 
 
 
+});
+
+document.getElementById("sound-image").addEventListener("click", function() {
+    if (audio) {
+        document.getElementById("sound-image").src = "no-sound.png";
+        audio = false;
+    }
+    else {
+      document.getElementById("sound-image").src = "sound.png";
+      audio = true;
+
+    }
 });
 
 // Execute a function when the user releases a key on the keyboard
